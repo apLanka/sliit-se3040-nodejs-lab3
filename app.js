@@ -12,7 +12,7 @@ fs.writeFile('file.txt', 'Hello World!', function (err) {
 
 const http = require('http');
 
-http.createServer(function (req, res) {
+const server = http.createServer(function (req, res) {
  res.writeHead(200, {'Content-Type': 'text/html'});
  res.write('Hello World!');
  res.end();
@@ -59,4 +59,8 @@ async function myFunction() {
  }
 }
 
-myFunction();
+// close the server after the async function completes
+myFunction().then(() => {
+ server.close();
+ process.exit(0);
+});
